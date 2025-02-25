@@ -1,13 +1,20 @@
-from fastapi import FastAPI
+from dotenv import load_dotenv
+import os
+import discord
+from discord.ext import commands
+from chat import test
+load_dotenv()
 
-app = FastAPI()
+TOKEN = os.getenv('DISCORD_TOKEN')
 
+intents = discord.Intents.default()
+intents.message_content = True
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+bot = commands.Bot(command_prefix='!', intents=intents)
 
+@bot.command()
+async def ping(ctx):
+    await ctx.send(test())
 
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
+if __name__ == '__main__':
+    bot.run(TOKEN)
