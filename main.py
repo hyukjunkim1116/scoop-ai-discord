@@ -36,6 +36,7 @@ async def on_member_join(member):
 
 @discord_bot.event
 async def on_member_remove(member):
+    print("Member left")
     await userService.delete_user(member, discord)
 
 
@@ -103,17 +104,6 @@ async def get_confirm_list(ctx):
 
 @discord_bot.command(name="시작")
 async def init_chat(ctx):
-    print("init chat")
-
-    role_name = str(ctx.channel.id)
-    exist_role = discord.utils.get(ctx.author.roles, name=role_name)
-    print(exist_role, "exist_role")
-    if exist_role is None:
-        role = await ctx.guild.create_role(
-            name=str(ctx.channel.id),
-            reason="Character chat access role in this channel"
-        )
-        await ctx.author.add_roles(role)
     await chatService().init_chat(ctx)
 
 

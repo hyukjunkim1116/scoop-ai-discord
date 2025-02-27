@@ -10,19 +10,17 @@ class UserService:
     @staticmethod
     async def delete_user(member,discord):
         member_id = member.id
-        userRepository().delete_user(member_id)
-        characterRepository().delete_all(member_id)
-        chatRepository().delete_all(member_id)
+        print("member_id", member_id)
         characters = characterRepository().get_characters_by_user_id(member_id)
         for character in characters:
             channel_id = character.get('channel_id')
             print(channel_id,"channel_id")
             channel = member.guild.get_channel(int(channel_id))
-            role = discord.utils.get(member.guild.roles, name=str(channel_id))
-            if role is not None:
-                await role.delete(reason=f"User {member_id} was removed")
             if channel is not None:
                 await channel.delete(reason=f"User {member_id} was removed")
+        userRepository().delete_user(member_id)
+        characterRepository().delete_all(member_id)
+        chatRepository().delete_all(member_id)
 
 
     @staticmethod
