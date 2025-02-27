@@ -28,7 +28,6 @@ class CharacterRepository:
 
     def get_characters_by_user_id(self, user_id):
         return list(self.collection.find({"user_id": user_id}))
-
 # 성별 gender
 # 소개 intro
 # mbti mbti

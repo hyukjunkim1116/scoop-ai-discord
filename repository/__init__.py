@@ -13,6 +13,8 @@ def get_collection(database_name:str,collection_name:str):
 from .user import UserRepository
 from .character import CharacterRepository
 from .chat import ChatRepository
+from .chat_generator import ChatGenerator
+from .prompt import Prompt
 # from repository import User
 #
 # # User 클래스 인스턴스 생성

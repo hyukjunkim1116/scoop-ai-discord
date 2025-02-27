@@ -57,7 +57,9 @@ class CharacterService:
 
     @staticmethod
     async def create_init_situation(ctx, init_situation: str):
-        return await CharacterService.update_character_attribute(ctx, "init_situation", init_situation, "초기 상황")
+        # 문자열 앞뒤에 괄호 추가
+        modified_init_situation = f"({init_situation})"
+        return await CharacterService.update_character_attribute(ctx, "init_situation", modified_init_situation, "초기 상황")
 
     @staticmethod
     async def create_secret(ctx, secret: str):
@@ -69,78 +71,7 @@ class CharacterService:
         return await CharacterService.update_character_attribute(ctx, "character_image_url", image_url, "이미지")
 
 
-    @staticmethod
-    async def get_confirm_list(ctx,discord):
-        character = characterRepository().get_character_by_channel_id(ctx.channel.id)
 
-        if not character:
-            await ctx.send("이 채널에 연결된 캐릭터가 없습니다.")
-            return False
-
-        # 속성 목록
-        attributes = [
-            ("이름", "character_name"),
-            ("성별", "gender"),
-            ("소개", "intro"),
-            ("MBTI", "mbti"),
-            ("초기 호감도", "init_affection"),
-            ("세계관", "world_view"),
-            ("초기 대화", "init_chat"),
-            ("초기 상황", "init_situation"),
-            ("비밀", "secret"),
-        ]
-        # 결과 메시지 생성
-        embed = discord.Embed(
-            title=f"'{character.get('character_name', '알 수 없음')}' 캐릭터 정보",
-            description="캐릭터 설정 상태를 확인합니다.",
-            color=0x3498db  # 파란색
-        )
-
-        for display_name, attr_name in attributes:
-            # 속성값 가져오기, 없으면 "X"로 표시
-            value = character.get(attr_name, "X")
-
-            # 값이 너무 길면 일부만 표시
-            if isinstance(value, str) and len(value) > 100:
-                value = value[:97] + "..."
-
-            # 비밀의 경우 실제 내용은 보여주지 않음
-            if attr_name == "secret" and value != "X":
-                value = "⭐ 설정됨"
-
-            # 임베드에 필드 추가
-            embed.add_field(
-                name=f"📝 {display_name}",
-                value=value,
-                inline=False
-            )
-
-        # 설정 완료 여부 확인
-        required_fields = ["gender", "intro", "mbti", "init_affection",
-                           "world_view", "init_chat", "init_situation"]
-
-        all_set = all(character.get(field) for field in required_fields)
-
-        if all_set:
-            embed.set_footer(text="모든 필수 설정이 완료되었습니다! '!시작' 명령어로 대화를 시작할 수 있습니다.")
-            embed.color = 0x2ecc71  # 초록색
-        else:
-            missing = [attr for attr, field in [
-                ("성별", "gender"),
-                ("소개", "intro"),
-                ("MBTI", "mbti"),
-                ("초기 호감도", "init_affection"),
-                ("세계관", "world_view"),
-                ("초기 대화", "init_chat"),
-                ("초기 상황", "init_situation"),
-                ("비밀", "secret"),
-            ] if not character.get(field)]
-
-            embed.set_footer(text=f"아직 설정이 필요합니다: {', '.join(missing)}")
-            embed.color = 0xe74c3c  # 빨간색
-
-        await ctx.send(embed=embed)
-        return True
 
     @staticmethod
     async def update_character_attribute(ctx, field_name, value, display_name=None, transform_func=None):
@@ -174,11 +105,7 @@ class CharacterService:
         else:
             await ctx.send("캐릭터 정보 업데이트에 실패했습니다.")
             return False
-    @staticmethod
-    async def init_chat(ctx):
-        character = characterRepository().get_character_by_channel_id(ctx.channel.id)
-        start_chat = character.get("init_chat","먼저 채팅을 시작해보세요")
-        await ctx.send(start_chat)
+
 
     @staticmethod
     async def restart_chat(ctx):
