@@ -12,12 +12,13 @@ class CharacterService:
         user = ctx.author
 
         channel = await guild.create_text_channel(name=f"{character_name}")
-
+        await channel.edit(nsfw=True)
         webhook = await channel.create_webhook(name=channel.id)
 
         characterRepository().initialize_character(character_name, user.id,channel.id,webhook.url)
         await channel.set_permissions(guild.default_role, read_messages=False)
         await channel.set_permissions(user, read_messages=True, send_messages=True)
+
         await ctx.send(f"{channel.mention}에서 `{character_name}`와 대화를 시작하세요!")
         # 새로 생성된 채널에 메시지 보내기
         await channel.send(f"안녕하세요, {user.mention}님! `{character_name}` 캐릭터 채널이 생성되었습니다.")
