@@ -4,7 +4,6 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 
-
 class ImageGenerator:
     def __init__(self):
         # 환경 변수 로드
