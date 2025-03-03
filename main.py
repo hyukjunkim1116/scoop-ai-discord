@@ -21,12 +21,7 @@ async def on_message(message):
         return
     if message.content.startswith('!'):
         return await discord_bot.process_commands(message)
-    roles = message.author.roles
-    role_names = [role.name for role in roles]
-    if str(message.channel.id) not in role_names:
-        return
-    return await chatService().process_chat(message)
-
+    character_chat=await chatService().process_chat(message)
 
 @discord_bot.event
 async def on_member_join(member):
@@ -73,8 +68,8 @@ async def create_world_view(ctx, *, world_view: str):
 
 
 @discord_bot.command(name="첫메세지")
-async def create_init_chat(ctx, *, init_chat: str):
-    await characterService.create_init_chat(ctx, init_chat)
+async def create_init_chat(ctx, *, start_chat: str):
+    await characterService.create_init_chat(ctx, start_chat)
 
 
 @discord_bot.command(name="처음상황")
@@ -95,7 +90,7 @@ async def create_image(ctx, *, image_prompt: str):
 
 @discord_bot.command(name="확인")
 async def get_confirm_list(ctx):
-    embed = embedService.get_confirm_list(ctx, discord)
+    embed = embedService().get_confirm_list(ctx)
     if embed:
         await ctx.send(embed=embed)
     else:

@@ -35,7 +35,7 @@ class EmbedService:
         # 전체 내용을 하나의 description으로 구성
         full_description = f"{formatted_situation}\n\n{chat}\n\n{affection_display}"
         # 임베드 생성
-        embed = discord.Embed(
+        embed = self.discord.Embed(
             description=full_description,
             color=color
         )
@@ -114,7 +114,7 @@ class EmbedService:
     def get_help_embed(self):
         """봇 명령어 사용법을 보여줍니다."""
 
-        embed = discord.Embed(
+        embed = self.discord.Embed(
             title="🤖 Scoop AI 캐릭터 챗봇 사용 설명서",
             description="나만의 AI 캐릭터를 만들고 대화해보세요!",
             color=0x00b0f4  # 파란색 계열

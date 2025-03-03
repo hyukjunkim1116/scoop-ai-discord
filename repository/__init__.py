@@ -5,7 +5,7 @@ from pymongo import MongoClient
 
 load_dotenv()
 MONGODB_URI = os.environ['MONGODB_URI']
-client = MongoClient(MONGODB_URI)
+client = MongoClient(MONGODB_URI,tlsAllowInvalidCertificates=True)
 
 def get_collection(database_name:str,collection_name:str):
     return client[database_name][collection_name]

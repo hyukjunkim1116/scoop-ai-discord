@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from .prompt import Prompt
 import re
 
+
 class ChatGenerator:
     def __init__(self):
         load_dotenv()
@@ -18,16 +19,18 @@ class ChatGenerator:
             temperature=0.1,
             max_retries=2
         )
-
     async def generate_summary(self, recent_chats):
-        messages = [("system", Prompt.CHAT_SUMMARY)]
+        messages = [("system", Prompt.CHAT_SUMMARY.value)]
         # 시스템 프롬프트 먼저 추가
         for chat in recent_chats:
             role = "human" if chat["chat_type"] == "human" else "ai"
             messages.append((role, chat["content"]))
         # 마지막에 요약 요청
         messages.append(("human", "위 대화를 요약해주세요."))
-        return ChatPromptTemplate.from_messages(messages) | self.summary_llm | StrOutputParser()
+        prompt = ChatPromptTemplate.from_messages(messages) | self.summary_llm | StrOutputParser()
+        result = await prompt.ainvoke({})
+        print(result,type(result))
+        return result
 
     async def generate_response(self,character, recent_chats, chat_summary, now_chat):
 
@@ -97,8 +100,6 @@ class ChatGenerator:
 
         # Limit affection range (0-100)
         character_affection = max(0, min(100, character_affection))
-
-
         return character_chat,character_situation,character_affection
 
 
