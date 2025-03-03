@@ -1,11 +1,5 @@
 from enum import Enum
 
-
-# 시작호감도 start_affection
-# 첫메세지 first_chat
-# 처음상황 first_situation
-
-
 class Prompt(Enum):
     CHAT = """
         <role>

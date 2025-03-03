@@ -13,7 +13,7 @@ intents.message_content = True
 intents.guilds = True
 intents.members = True
 discord_bot = commands.Bot(command_prefix='!', intents=intents)
-
+# 도커파일 테스투
 
 @discord_bot.event
 async def on_message(message):
