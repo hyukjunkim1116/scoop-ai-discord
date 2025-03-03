@@ -1,3 +1,5 @@
 - pip install --upgrade pip
 - pip freeze > requirements.txt
 - pip install -r requirements.txt
+- docker build --platform linux/amd64 -t nmkk1234/scoop-discord .
+- docker push nmkk1234/scoop-discord

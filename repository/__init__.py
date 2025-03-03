@@ -9,12 +9,10 @@ load_dotenv()
 ca = certifi.where()
 client = MongoClient(
     "mongodb+srv://rlagurwns112:1Q87cSAEV9YXym1U@scoop.mmw44.mongodb.net/",
-    tlsAllowInvalidCertificates=True,
     retryWrites=True,
     w="majority",
     appName="scoop",
     tlsCAFile=ca,
-    tlsInsecure=True,  # 불안전하지만 테스트용
 )
 
 def get_collection(database_name:str,collection_name:str):
