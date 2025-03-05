@@ -1,7 +1,7 @@
 from datetime import datetime
-from repository import CharacterRepository as characterRepository
-from repository import ChatRepository as chatRepository
-from repository import ChatGenerator as chatGenerator
+from v1.repository import CharacterRepository as characterRepository
+from v1.repository import ChatRepository as chatRepository
+from v1.repository import ChatGenerator as chatGenerator
 from .embed import EmbedService as embedService
 
 

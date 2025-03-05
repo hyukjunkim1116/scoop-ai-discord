@@ -1,6 +1,6 @@
-from repository import CharacterRepository as characterRepository
-from repository import ChatRepository as chatRepository
-from image import ImageGenerator
+from v1.repository import CharacterRepository as characterRepository
+from v1.repository import ChatRepository as chatRepository
+from v1.image import ImageGenerator
 class CharacterService:
 
     @staticmethod

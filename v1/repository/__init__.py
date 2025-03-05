@@ -4,16 +4,17 @@ from pymongo import MongoClient
 import certifi
 
 
-
-load_dotenv()
-ca = certifi.where()
-client = MongoClient(
-    "mongodb+srv://rlagurwns112:1Q87cSAEV9YXym1U@scoop.mmw44.mongodb.net/",
-    retryWrites=True,
-    w="majority",
-    appName="scoop",
-    tlsCAFile=ca,
-)
+#
+# load_dotenv()
+# MONGO_URI = os.getenv("MONGO_URI")
+# ca = certifi.where()
+# client = MongoClient(
+#   MONGO_URI,
+#     retryWrites=True,
+#     w="majority",
+#     appName="scoop",
+#     tlsCAFile=ca,
+# )
 
 def get_collection(database_name:str,collection_name:str):
     return client[database_name][collection_name]

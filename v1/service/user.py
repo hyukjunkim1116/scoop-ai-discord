@@ -1,6 +1,4 @@
-from repository import UserRepository as userRepository
-from repository import CharacterRepository as characterRepository
-from repository import ChatRepository as chatRepository
+
 class UserService:
 
     @staticmethod
@@ -8,7 +6,7 @@ class UserService:
         return userRepository().initialize_user(user_id)
 
     @staticmethod
-    async def delete_user(member,discord):
+    async def delete_user(member):
         member_id = member.id
         print("member_id", member_id)
         characters = characterRepository().get_characters_by_user_id(member_id)
@@ -19,7 +17,6 @@ class UserService:
             if channel is not None:
                 await channel.delete(reason=f"User {member_id} was removed")
         userRepository().delete_user(member_id)
-        characterRepository().delete_all(member_id)
         chatRepository().delete_all(member_id)
 
 

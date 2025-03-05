@@ -101,3 +101,6 @@ webencodings==0.5.1
 yarg==0.1.9
 yarl==1.18.3
 zstandard==0.23.0
+
+pyleetspeak~=0.1.0
+langgraph~=0.2.76

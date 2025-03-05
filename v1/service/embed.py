@@ -1,5 +1,5 @@
 import discord
-from repository import CharacterRepository as characterRepository
+from v1.repository import CharacterRepository as characterRepository
 class EmbedService:
     def __init__(self):
         self.discord = discord
