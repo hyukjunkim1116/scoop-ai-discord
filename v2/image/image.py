@@ -58,13 +58,13 @@ class ImageGenerator:
         except Exception as e:
             print(f"이미지 생성 중 오류 발생: {str(e)}")
             return None
-
-
-if __name__ == "__main__":
-    image_generator = ImageGenerator()
-    for key,value in ImagePrompt.CHARACTER_MAP.value.items():
-        character_name = key
-        prompt = value
-        image_generator=ImageGenerator()
-        response = image_generator.generate_image(prompt,character_name)
-        print(response)
+#
+#
+# if __name__ == "__main__":
+#     image_generator = ImageGenerator()
+#     for key,value in ImagePrompt.CHARACTER_MAP.value.items():
+#         character_name = key
+#         prompt = value
+#         image_generator=ImageGenerator()
+#         response = image_generator.generate_image(prompt,character_name)
+#         print(response)

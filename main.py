@@ -35,9 +35,9 @@ async def create_character(ctx, *, character_name: str):
 @discord_bot.command(name = "전체")
 async def create_public_channel(ctx, *,character_name: str):
     await command_service.create_public_channel(ctx, character_name)
+
 @discord_bot.event
 async def on_message(message):
-
     if message.author == discord_bot.user or message.webhook_id is not None or message.channel.id == 1344347307151196262:
         return
     if message.content.startswith('!'):
